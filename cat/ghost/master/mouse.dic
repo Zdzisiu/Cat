@@ -1,0 +1,74 @@
+﻿ OnMouseMove
+ {
+  	if nowmode != "QUIZ"
+ 	{
+		
+		if reference3 == 0 
+		{
+			
+			MouseMoveSakura
+		}
+		else 
+		{
+			
+			MouseMoveKero
+		}
+	}
+ } 
+ 
+MouseMoveSakura
+ {
+	if reference4 != "" 
+ 	{
+ 		stroke++ 
+		--
+		if reference4 == "Head" || reference4 == "Back" || reference4 == "Tail"
+		{
+			if stroke >= 40 
+			{
+				if silence == "ON" 
+				{
+					"Meow"
+				}
+				elseif purrmode == "OFF" 
+				{
+					"\![sound,stop]"
+					--
+					"\![sound,play,s/purring1.wav,--volume=%(volume)]\e" 
+					"\![sound,play,s/purring2.wav,--volume=%(volume)]\e" 
+					"\![sound,play,s/purring3.wav,--volume=%(volume)]\e" 
+				}
+				--
+				stroke = 0
+				
+			}
+
+		}
+	}
+ 	else
+	{ 
+		stroke = 0
+ 	}
+} 
+
+OnMouseDoubleClick
+ { 
+ 	if reference3 == 0 
+	{
+		MouseDoubleClickSakura
+ 	}
+	else
+ 	{
+ 		MouseDoubleClickKero
+	}
+ } 
+ 
+MouseDoubleClickSakura
+ {
+ 		OpenSakuraMenu 
+ } 
+ 
+MouseDoubleClickKero
+ {
+
+ }

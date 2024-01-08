@@ -1,0 +1,16 @@
+descript
+{
+	version,1
+}
+
+
+Surface0
+{
+collision0,49,80,116,101,Head
+collision1,110,98,192,115,Back
+collision2,92,143,181,173,Tail
+
+animation0.interval,always
+animation0.pattern0,replace,0,125,0,0
+animation0.pattern1,replace,1,125,0,0
+}

@@ -1,0 +1,139 @@
+﻿AiTalk
+{
+	if RAND(100) < communicateratio
+	{
+		StartCommunicate
+	}
+	else
+	{
+		if mikireflag == 0
+		{
+			if CHAIN.IDName == "" {
+				lastTalk = RandomTalk
+			}
+			else {
+				lastTalk = ChainTalk
+			}
+			lastTalk
+		}
+		else
+		{ 
+			MikireTalk
+		}
+	}
+} 
+
+RandomTalk : nonoverlap
+{
+	if silence != "ON"
+	{
+		"\![sound,play,s/%(meows),--volume=%(volume)]" 
+		"\![sound,play,s/sneeze.wav,--volume=%(volume)]"
+		"\![sound,play,s/long purr.wav,--volume=%(volume)]"
+	}
+	else
+	{
+		"Meow" 
+	}
+}
+
+OnMinuteChange
+ {
+	timeslot = GetTimeSlot 
+	--
+ 	if minute == 0 
+	{ 
+
+	} 
+	elseif mikireflag == 1
+ 	{
+ 		MikireTalk
+	}
+ } 
+
+OnSecondChange
+ {
+	if passsec == 60
+ 		{
+	 	passsec = 1
+ 		passmin = passmin + 1
+		}
+ 	else
+ 		{
+	 	passsec = passsec + 1
+		}
+	if mikireflag == 1 && reference1 == 0
+		{
+			EndMikireTalk
+ 		}
+		mikireflag = reference1
+	if reference2 == 1
+	{
+		
+	}
+ } 
+ 
+MikireTalk
+ {
+	 
+ } 
+ 
+EndMikireTalk
+ {
+	
+ } 
+
+OnSurfaceRestore
+ { 
+	 "\0\s[0]\e" 
+ } 
+ 
+OnKeyPress
+{
+	if reference0 == "t"
+	{
+	OnAiTalk
+	}
+	elseif reference0 == "r"
+	{
+	OnLastTalk
+	}
+	elseif reference0 == "right"
+	{
+		if volume < 100
+		{
+			volume += 5
+		}
+		--
+		if volume > 100
+		{
+			volume = 100
+		}
+		--
+		if purrmode == "ON"
+		{
+			"\![sound,option,s/long purr.wav,--volume=%(volume)]"
+		} 
+	}
+	elseif reference0 == "left"
+	{
+		if volume > 0
+		{
+			volume -= 5
+		}
+		--
+		if volume < 0
+		{
+			volume = 0
+		}
+		--
+		if purrmode == "ON"
+		{
+			"\![sound,option,s/long purr.wav,--volume=%(volume)]"
+		} 
+	}
+	elseif reference0 == "f1"
+	{
+	"\![open,readme]"
+	}
+}
